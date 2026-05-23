@@ -1,0 +1,28 @@
+<?php
+include 'db.php';
+
+$id = $_GET['id'];
+
+$result = mysqli_query($conn,"SELECT * FROM foods WHERE id=$id");
+
+$food = mysqli_fetch_assoc($result);
+
+if(isset($_POST['update'])){
+
+$name = $_POST['food'];
+
+mysqli_query($conn,
+"UPDATE foods SET food_name='$name' WHERE id=$id");
+
+header("Location: dashboard.php");
+}
+?>
+
+<form method="POST">
+
+<input type="text" name="food"
+value="<?php echo $food['food_name']; ?>">
+
+<button name="update">Update</button>
+
+</form>

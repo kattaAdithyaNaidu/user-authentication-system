@@ -1,0 +1,33 @@
+<?php
+include 'db.php';
+
+if(isset($_POST['submit'])){
+
+$food = $_POST['food'];
+$price = $_POST['price'];
+
+$image = $_FILES['image']['name'];
+$temp = $_FILES['image']['tmp_name'];
+
+move_uploaded_file($temp,"uploads/".$image);
+
+$query = "INSERT INTO foods(food_name,price,image)
+VALUES('$food','$price','$image')";
+
+mysqli_query($conn,$query);
+
+echo "Food Added";
+}
+?>
+
+<form method="POST" enctype="multipart/form-data">
+
+<input type="text" name="food" placeholder="Food Name"><br><br>
+
+<input type="number" name="price" placeholder="Price"><br><br>
+
+<input type="file" name="image"><br><br>
+
+<button name="submit">Add Food</button>
+
+</form>
